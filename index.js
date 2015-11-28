@@ -25,14 +25,24 @@ gm(dir + '/face1.jpg')
     console.log(this.outname + " created  ::  " + arguments[3])
   }
 )
-// Lols
+
+////////////
+// Python //
+////////////
+
 var PythonShell = require('python-shell');
+// Hello World
+PythonShell.run('helloworld.py', function (err) {
+  if (err) throw err;
+  console.log('bye');
+});
+
+// Face morph
 var options ={
   src: 'examples/face1.jpg',
   dest: 'examples/face2.jpg',
   num: 12
 }
-
 PythonShell.run('facemorpher/morpher.py', options, function (err, results) {
   console.log('start pythons script')
   console.log(results)
