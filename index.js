@@ -14,8 +14,13 @@ console.log('Running on http://localhost:' + PORT);
 
 // Lols
 var PythonShell = require('python-shell');
+var options ={
+  src: 'examples/face1.jpg',
+  dest: 'examples/face2.jpg',
+  num: 12
+}
 
-PythonShell.run('helloworld.py', function (err, results) {
+PythonShell.run('facemorpher/morpher.py', options, function (err, results) {
   console.log('start pythons script')
   console.log(results)
   if (err) throw err;
