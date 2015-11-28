@@ -16,6 +16,7 @@ RUN apt-get install -y software-properties-common
 RUN apt-get install -y byobu curl git htop man unzip vim wget
 RUN apt-get install -y gcc make pkg-config python python-dev python-pip python-virtualenv
 RUN apt-get install -y libfreetype6-dev libpng-dev
+RUN apt-get install -y imagemagick graphicsmagick
 RUN rm -rf /var/lib/apt/lists/*
 # install requirements
 

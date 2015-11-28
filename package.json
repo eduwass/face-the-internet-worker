@@ -6,6 +6,7 @@
   "author": "Edu Wass",
   "dependencies": {
     "express": "3.2.4",
-    "python-shell": "0.2.0"
+    "python-shell": "0.2.0",
+    "gm": "1.21.1"
   }
 }

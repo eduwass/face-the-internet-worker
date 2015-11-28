@@ -12,6 +12,19 @@ app.get('/', function (req, res) {
 app.listen(PORT);
 console.log('Running on http://localhost:' + PORT);
 
+// GraphicsMagix
+// gm - Copyright Aaron Heckmann <aaron.heckmann+github@gmail.com> (MIT Licensed)
+
+var gm = require('gm')
+  , dir = __dirname + '/examples'
+  
+gm(dir + '/face1.jpg')
+  .crop(200, 155, 300, 0)
+  .write(dir + "/crop.jpg", function(err){
+    if (err) return console.dir(arguments)
+    console.log(this.outname + " created  ::  " + arguments[3])
+  }
+)
 // Lols
 var PythonShell = require('python-shell');
 var options ={
