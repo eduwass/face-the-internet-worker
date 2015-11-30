@@ -14,7 +14,7 @@ console.log('Running on http://localhost:' + PORT);
 
 // GraphicsMagix
 // gm - Copyright Aaron Heckmann <aaron.heckmann+github@gmail.com> (MIT Licensed)
-
+var fs = require('fs')
 var gm = require('gm')
   , dir = __dirname + '/examples'
   
@@ -43,7 +43,7 @@ var options ={
   dest: 'examples/face2.jpg',
   num: 12
 }
-PythonShell.run('facemorpher/morpher.py', options, function (err, results) {
+PythonShell.run('facemorpher/morpher.py --src=examples/face1.jpg --dest=examples/face2.jpg --num=12 --plot',  function (err, results) {
   console.log('start pythons script')
   console.log(results)
   if (err) throw err;

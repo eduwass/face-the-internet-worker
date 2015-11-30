@@ -14,7 +14,10 @@ RUN apt-get -y upgrade
 RUN apt-get install -y build-essential
 RUN apt-get install -y software-properties-common
 RUN apt-get install -y byobu curl git htop man unzip vim wget
-RUN apt-get install -y gcc make pkg-config python python-dev python-pip python-virtualenv
+RUN wget -O- http://neuro.debian.net/lists/trusty.de-m.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+RUN sudo apt-key adv --recv-keys --keyserver hkp://pgp.mit.edu:80 0xA5D32F012649A5A9
+RUN apt-get install -y gcc make cmake pkg-config python python-dev python-pip python-virtualenv libopencv-dev
+RUN apt-get install -y libopenblas-dev python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose python-opencv
 RUN apt-get install -y libfreetype6-dev libpng-dev
 RUN apt-get install -y imagemagick graphicsmagick
 RUN rm -rf /var/lib/apt/lists/*
@@ -22,9 +25,11 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # pip
 RUN pip install cv2
-RUN pip install numpy
-RUN pip install matplotlib
+#RUN pip install numpy
+#RUN pip install matplotlib
 RUN pip install docopt
+#RUN pip install cython git+https://github.com/scipy/scipy
+#RUN pip install git+https://github.com/scipy/scipy.git
 #RUN pip install Pillow
 
 # Install Node.js
@@ -43,9 +48,7 @@ RUN \
   printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
 
 # Add files.
-#ADD root/.bashrc /root/.bashrc
-#ADD root/.gitconfig /root/.gitconfig
-#ADD root/.scripts /root/.scripts
+ADD . /app
 
 # Set environment variables.
 ENV HOME /root
@@ -53,6 +56,7 @@ ENV HOME /root
 # Define working directory.
 WORKDIR /root
 
+RUN sudo ln /dev/null /dev/raw1394
 
 # Define default command.
 CMD ["bash"]
