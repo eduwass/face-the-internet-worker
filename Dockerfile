@@ -3,11 +3,9 @@
 #
 # https://github.com/dockerfile/ubuntu
 #
-
 # Pull base image.
 FROM ubuntu:14.04
-
-# Install.
+# Install stuff
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get -y upgrade
@@ -21,17 +19,9 @@ RUN apt-get install -y libopenblas-dev python-numpy python-scipy python-matplotl
 RUN apt-get install -y libfreetype6-dev libpng-dev
 RUN apt-get install -y imagemagick graphicsmagick
 RUN rm -rf /var/lib/apt/lists/*
-# install requirements
-
-# pip
+# pip requirements
 RUN pip install cv2
-#RUN pip install numpy
-#RUN pip install matplotlib
 RUN pip install docopt
-#RUN pip install cython git+https://github.com/scipy/scipy
-#RUN pip install git+https://github.com/scipy/scipy.git
-#RUN pip install Pillow
-
 # Install Node.js
 RUN \
   cd /tmp && \
@@ -46,17 +36,15 @@ RUN \
   rm -rf /tmp/node-v* && \
   npm install -g npm && \
   printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
-
-# Add files.
+# map files to '/app' inside the docker container
 ADD . /app
-
 # Set environment variables.
 ENV HOME /root
-
 # Define working directory.
 WORKDIR /root
-
 RUN sudo ln /dev/null /dev/raw1394
-
-# Define default command.
-CMD ["bash"]
+# Note: ln -s /dev/null /dev/raw1394 is to prevent error on python's
+#   cv2 during import: "libdc1394 error: Failed to initialize libdc1394"
+#   So, if you want to run another command, just update your CMD to start
+#   with this script, followed by whatever you want. (Not cute, but works)
+CMD sh -c 'ln -s /dev/null /dev/raw1394'; bash
