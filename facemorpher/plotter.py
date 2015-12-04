@@ -2,7 +2,11 @@
 Plot and save images
 """
 
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
+import matplotlib
+# Force matplotlib to not use any Xwindows backend.
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
 import os.path

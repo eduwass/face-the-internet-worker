@@ -37,6 +37,9 @@ import warper
 import blender
 import plotter
 import videoer
+import matplotlib
+matplotlib.use('Agg') 
+
 
 def verify_args(args):
   if args['--images'] is None:
