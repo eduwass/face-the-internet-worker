@@ -23,19 +23,8 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN pip install cv2
 RUN pip install docopt
 # Install Node.js
-RUN \
-  cd /tmp && \
-  wget http://nodejs.org/dist/node-latest.tar.gz && \
-  tar xvzf node-latest.tar.gz && \
-  rm -f node-latest.tar.gz && \
-  cd node-v* && \
-  ./configure && \
-  CXX="g++ -Wno-unused-local-typedefs" make && \
-  CXX="g++ -Wno-unused-local-typedefs" make install && \
-  cd /tmp && \
-  rm -rf /tmp/node-v* && \
-  npm install -g npm && \
-  printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
+RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
+RUN apt-get install -y nodejs
 # map files to '/app' inside the docker container
 ADD . /app
 # Set environment variables.
