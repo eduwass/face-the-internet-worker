@@ -38,6 +38,7 @@ import blender
 import plotter
 import videoer
 import matplotlib
+from pprint import pprint
 matplotlib.use('Agg') 
 
 
@@ -112,7 +113,8 @@ def morph(src_img, src_points, dest_img, dest_points,
     src_face = warper.warp_image(src_img, src_points, points, size)
     end_face = warper.warp_image(dest_img, dest_points, points, size)
     average_face = blender.weighted_average(src_face, end_face, percent)
-    average_face = alpha_image(average_face, points) if alpha else average_face
+    # Comment to remove background
+    #average_face = alpha_image(average_face, points) if alpha else average_face
     plt.plot_one(average_face, 'save')
     video.write(average_face)
 

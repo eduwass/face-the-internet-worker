@@ -88,7 +88,7 @@ def warp_image(src_img, src_points, dest_points, dest_shape, dtype=np.uint8):
 
   process_warp(src_img, result_img, tri_affines, dest_points, delaunay)
 
-  return result_img
+  return src_img
 
 def test_local():
   from functools import partial
