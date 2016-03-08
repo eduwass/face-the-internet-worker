@@ -30,10 +30,13 @@ ADD . /app
 # Set environment variables.
 ENV HOME /root
 # Define working directory.
-WORKDIR /root
-RUN sudo ln /dev/null /dev/raw1394
+WORKDIR /app
+# Install app dependencies
+RUN cd /app && npm install
+
 # Note: ln -s /dev/null /dev/raw1394 is to prevent error on python's
 #   cv2 during import: "libdc1394 error: Failed to initialize libdc1394"
 #   So, if you want to run another command, just update your CMD to start
 #   with this script, followed by whatever you want. (Not cute, but works)
+RUN sudo ln /dev/null /dev/raw1394
 CMD sh -c 'ln -s /dev/null /dev/raw1394'; bash
